@@ -1,0 +1,19 @@
+﻿@using ASE.BL
+@using ASE.Entities
+@using ASE.UI
+
+<div class="bg-fader">
+	<div class="center-table">
+		<div class="center-cell">
+			<div class="aligncenter datetime-form">
+				@using (Html.BeginForm("CompleteOrder", "Browse", FormMethod.Post))
+				{
+					@Html.AntiForgeryToken()
+					<h4>Select minutes from now: (@DateTime.Now.ToShortTimeString())</h4>
+					<input id="minutes" name="minutes" type="number" min="5" max="120" value="15" placeholder="Minutes" class="datetime" />
+					<input type="submit" class="btn margin-top" value="Complete Order" />
+				}
+			</div>
+		</div>
+	</div>
+</div>

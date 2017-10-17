@@ -1,0 +1,46 @@
+﻿@using ASE.BL
+@using ASE.Entities
+@using ASE.UI
+@model Guid
+
+@{
+	var _dishmanager = new DishManager();
+	var _ordermanager = new OrderManager();
+	var _usermanager = new UserManager();
+	List<OrderEntity> list = _ordermanager.GetOrderByStallIDEntities(Model);
+}
+@if (list.Count > 0)
+{
+	list.Sort((x, y) => DateTime.Compare(x.PickupTime, y.PickupTime));
+	<h3>Current Orders</h3>
+	<table class="margin-top">
+		<tr class="orderlist-header">
+			<th>Pickup</th>
+			<th>Price</th>
+			<th>Order</th>
+			<th>Customer</th>
+			<th></th>
+		</tr>
+		@foreach (var item in list)
+		{
+			var entity = _dishmanager.GetDishByIDObject(item.DishID).Fields;
+			var color = string.Empty;
+			TimeSpan span = item.PickupTime.Subtract(DateTime.Now);
+			if (span.Minutes <= 5)
+			{
+				color = "yellow";
+				if (span.Minutes <= 0)
+				{
+					color = "red";
+				}
+			}
+			<tr class="orderlist-entry">
+				<th class="bold @color">@item.PickupTime.ToShortTimeString()</th>
+				<th>@entity.Price</th>
+				<th>@entity.Name</th>
+				<th>@_usermanager.GetEmailByUserId(item.UserID)</th>
+				<th><a href="/Staff/RemoveOrder?ID=@item.ID" class="remove-order-a btn float-right">Remove</a></th>
+			</tr>
+		}
+	</table>
+}

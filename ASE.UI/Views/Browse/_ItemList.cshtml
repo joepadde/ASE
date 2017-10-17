@@ -1,0 +1,115 @@
+﻿@using ASE.BL
+@using ASE.Entities
+@using ASE.UI
+
+@{
+	var _ordermanager = new OrderManager();
+	List<OrderEntity> list = _ordermanager.GetOrderByUserIDEntities(UIHelper.GetUserIDByEmail(User.Identity.Name));
+}
+@if (list.Count > 0)
+{
+	var _dishmanager = new DishManager();
+	var ready = new List<OrderEntity>();
+	var ordered = new List<OrderEntity>();
+	var ordered_temp = new List<OrderEntity>();
+	var basket = new List<OrderEntity>();
+	foreach (OrderEntity item in list)
+	{
+		if (item.Status.HasValue)
+		{
+			if (item.Status.Value == true)
+			{
+				ready.Add(item);
+			}
+			else
+			{
+				ordered_temp.Add(item);
+			}
+		}
+		else
+		{
+			basket.Add(item);
+		}
+	}
+	foreach (OrderEntity o in ordered_temp)
+	{
+		if (o.PickupTime.CompareTo(DateTime.Now) >= 0)
+		{
+			ordered.Add(o);
+		}
+		else
+		{
+			o.Status = true;
+			ready.Add(o);
+			Order order = new Order(o);
+			order.Save();
+		}
+	}
+	<div class="itemlist-container">
+		<div class="itemlist">
+			@if (ready.Count > 0)
+			{
+			<h4>Ready</h4>
+				float total = 0;
+				ready.Sort((x, y) => String.Compare(x.StallID.ToString(), y.StallID.ToString()));
+				var _stallmanager = new StallManager();
+				string pickup = string.Empty;
+				foreach (OrderEntity r in ready)
+				{
+					Stall stall = _stallmanager.GetStallByIDObject(r.StallID);
+					if (pickup != stall.Fields.Name)
+					{
+						if (pickup != string.Empty)
+						{
+							<h5 class="underline">Total: $@total</h5>
+						}
+						pickup = stall.Fields.Name;
+						<h5 class="secondary-color bold">@pickup</h5>
+						total = 0;
+					}
+					Dish dish = _dishmanager.GetDishByIDObject(r.DishID);
+					total += dish.Fields.Price;
+					<h5>@dish.Fields.Name ($@dish.Fields.Price)</h5>
+				}
+				<h5 class="underline">Total: $@total</h5>
+			}
+			@if (ordered.Count > 0)
+			{
+				<h4>Ordered</h4>
+				float total = 0;
+				ordered.Sort((x, y) => DateTime.Compare(x.PickupTime, y.PickupTime));
+				string pickup = string.Empty;
+				foreach (OrderEntity o in ordered)
+				{
+					if (o.PickupTime.ToShortTimeString() != pickup)
+					{
+						if (pickup != string.Empty)
+						{
+							<h5 class="underline">Total: $@total</h5>
+						}
+						pickup = o.PickupTime.ToShortTimeString();
+						<h5 class="secondary-color bold">Pickup: @pickup</h5>
+						total = 0;
+					}
+					Dish dish = _dishmanager.GetDishByIDObject(o.DishID);
+					total += dish.Fields.Price;
+					<h5>@dish.Fields.Name ($@dish.Fields.Price)</h5>
+				}
+				<h5 class="underline">Total: $@total</h5>
+			}
+			@if (basket.Count > 0)
+			{
+				<h4 class="inline-block whitespace">Basket</h4><a id="clear-basket" onclick="clearBasket();" class="secondary-color pointer">Clear</a>
+				float total = 0;
+				foreach (OrderEntity b in basket)
+				{
+					Dish dish = _dishmanager.GetDishByIDObject(b.DishID);
+					total += dish.Fields.Price;
+					<h5>@dish.Fields.Name ($@dish.Fields.Price)</h5>
+				}
+				<h5 class="underline">Total: $@total</h5>
+				<a id="submit-basket" onclick="submitBasket();" class="btn">Order</a>
+			}
+		</div>
+	</div>
+}

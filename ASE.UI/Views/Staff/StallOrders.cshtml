@@ -1,0 +1,59 @@
+﻿@using ASE.BL
+@using ASE.Entities
+@using ASE.Common
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	var _stallmanager = new StallManager();
+	var stall = _stallmanager.GetStallByIDObject(new Guid(Request.Params["StallId"])).Fields;
+
+}
+
+<div class="center-table">
+	<div class="center-cell">
+		<div id="landing" class="margin-auto width760 height-full scroll">
+			<h1 class="text-center noselect primary-color">@stall.Name</h1>
+			<div class="margin-top">
+				<a href="~/Staff/Dishes?StallId=@stall.ID" class="btn btn-large">Manage Dishes</a>
+			</div>
+			<div id="orderlist" class="text-center margin-top-large clearfix relative">
+				@Html.Partial("~/Views/Staff/_OrderList.cshtml")
+			</div>
+			<div class="fullwidth text-center margin-top-large relative">
+				<a href="/Staff/Index" class="btn btn-large">Return</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		function refresh() {
+			setTimeout(function () {
+				$.ajax({
+					type: "GET",
+					url: "/Staff/RefreshOrders?StallID=@Request.Params["StallId"]"
+				})
+					.done(function (partialViewResult) {
+						console.log("refreshing orders");
+						console.log(partialViewResult);
+						$('#orderlist').html(partialViewResult);
+					});
+				refresh();
+			}, 5000);
+		};
+		refresh();
+	});
+
+	$(function () {
+		$('.remove-order-a').click(function (event) {
+			event.preventDefault();
+			var path = $(this).attr('href');
+			$.ajax({
+				type: "GET",
+				url: path
+			});
+		});
+	});
+</script>

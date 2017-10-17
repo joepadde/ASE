@@ -1,0 +1,74 @@
+﻿@using ASE.UI
+@using ASE.BL
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+	<title>F2F</title>
+	<meta name="description" content="ASE">
+	<!-- CSS -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Montserrat:400,700' type='text/css'>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" type='text/css'>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:600" type='text/css'>
+	<link rel="stylesheet" href="~/css/style.css" type="text/css" media="all">
+	<link rel="icon" href="/favicon.ico" />
+	@Scripts.Render("~/bundles/jquery")
+</head>
+<body class="white-bg">
+	<header>
+		@{ 
+			bool staff = false;
+			if (User.Identity.IsAuthenticated)
+			{
+				var _staffmanager = new StaffManager();
+				var list = _staffmanager.GetStaffByUserIDObjects(UIHelper.GetUserIDByEmail(User.Identity.Name));
+				staff = (list.Count > 0);
+			}
+		}
+		@if (staff)
+		{
+			<div class="padding20">
+				<a href="~/Staff/" class="btn">Staff</a>
+			</div>
+		}
+		else
+		{
+			<h2 class="padding10 primary-color">F2F</h2>
+		}
+	</header>
+	@RenderBody()
+	<div id="popup"></div>
+
+	<script type="text/javascript">
+		function submitBasket() {
+			var path = '/Browse/GetPickupTimePopup';
+			$.ajax({
+				type: "GET",
+				url: path
+			})
+			.done(function (partialViewResult) {
+				$('#popup').html(partialViewResult);
+			});
+		};
+
+		function clearBasket() {
+			var path = '/Browse/ClearBasket';
+			$.ajax({
+				type: "GET",
+				url: path
+			})
+			.done(function (partialViewResult) {
+				$('#itemlist').html(partialViewResult);
+			});
+		};
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿@using ASE.BL
+@model Dish
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="bg-login" class="background"></div>
+<div class="fader center-table">
+	<div class="center-cell">
+		<div class="page-container width300 margin-auto secondary-color-bg">
+			<h2>Create Dish</h2>
+			<div>
+				@using (Html.BeginForm("SubmitDish", "Staff", FormMethod.Post))
+				{
+					@Html.AntiForgeryToken()
+					<div class="input-group clearfix">
+						<div class="input-group-addon relative">
+							<div class="center-table">
+								<div class="center-cell">
+									<div id="envelope-color" class="menu-icon margin-auto">N</div>
+								</div>
+							</div>
+						</div>
+						@Html.TextBoxFor(m => m.Fields.Name, new { placeholder = "Name" })
+						@*<input id="Name" name="Name" type="text" placeholder="Name" />*@
+					</div>
+					@*<div class="input-group clearfix">
+						<div class="input-group-addon relative">
+							<div class="center-table">
+								<div class="center-cell">
+									<div id="envelope-color" class="menu-icon margin-auto">D</div>
+								</div>
+							</div>
+						</div>
+						@Html.TextBoxFor(m => m.Fields.Description, new { placeholder = "Description" })
+						<input name="Description" type="text" placeholder="Description" />
+					</div>*@
+					<div class="input-group clearfix">
+						<div class="input-group-addon relative">
+							<div class="center-table">
+								<div class="center-cell">
+									<div id="envelope-color" class="menu-icon margin-auto">$</div>
+								</div>
+							</div>
+						</div>
+						@Html.TextBoxFor(m => m.Fields.Price, new { type="number", step="0.1", min="0", max="100", Value="15", placeholder="Price" })
+						@*<input name="Price" type="number" step="0.1" min="0" max="100" placeholder="Price" />*@
+					</div>
+					@*<div class="input-group clearfix">
+						<div class="input-group-addon relative">
+							<div class="center-table">
+								<div class="center-cell">
+									<div id="envelope-color" class="menu-icon margin-auto"></div>
+								</div>
+							</div>
+						</div>
+						<input name="OutOfOrder" type="checkbox" placeholder="Out of Order?" />
+					</div>*@
+					@*<div class="input-group clearfix">
+						<div class="input-group-addon relative">
+							<div class="center-table">
+								<div class="center-cell">
+									<div id="envelope-color" class="menu-icon margin-auto">F</div>
+								</div>
+							</div>
+						</div>
+						@Html.TextBoxFor(m => m.Fields.Photo, new { type = "file" })
+					</div>*@
+					<div class="field">
+						<input type="submit" class="btn btn-large" value="Create" />
+					</div>
+					@Html.HiddenFor(m => m.Fields.StallID, new { Value = Request.Params["StallId"] })
+					@*<input type="hidden" id="StallId" name="StallId" value="@Request.Params["StallId"]" />*@
+				}
+			</div>
+		</div>
+	</div>
+</div>

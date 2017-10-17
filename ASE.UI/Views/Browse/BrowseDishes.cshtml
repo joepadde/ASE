@@ -1,0 +1,77 @@
+﻿@using ASE.Entities
+@using ASE.Common
+@using ASE.UI
+@model List<DishEntity> 
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ 
+	if (Model.Count > 0)
+	{
+		Model.Sort((y, x) => x.Price.CompareTo(y.Price));
+	}
+}
+
+<div class="center-table">
+	<div class="center-cell">
+		<div id="landing" class="margin-auto width760 height-full scroll">
+			<h1 class="text-center noselect primary-color whitespace">Select a</h1>
+			<h1 class="text-center noselect primary-color underline whitespace">dish</h1>
+			<h1 class="text-center noselect primary-color">to order</h1>
+			<div class="text-center margin-top-large relative clearfix">
+				@for (int i = 0; i < Model.Count; i++)
+				{
+					var img = (Model[i].Photo != null) ? String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model[i].Photo)) : "";
+					<div class="browse-item" onclick="">
+						<div class="browse-img">
+							<img src="@img" />
+						</div>
+						<div class="browse-text">
+							<a href="/Browse/OrderDish?StallId=@Model[i].StallID&DishId=@Model[i].ID&UserId=@UIHelper.GetUserIDByEmail(User.Identity.Name)" class="browse-dish-a"><h5>$@Model[i].Price @Model[i].Name</h5></a>
+						</div>
+					</div>
+				}
+			</div>
+			<div class="fullwidth text-center margin-top relative">
+				<a href="/Browse/Index" class="btn btn-large">Return</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="itemlist">
+	@Html.Partial("~/Views/Browse/_ItemList.cshtml", new List<OrderEntity>())
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		function refresh() {
+			setTimeout(function () {
+				$.ajax({
+					type: "GET",
+					url: "/Browse/RefreshList"
+				})
+				.done(function (partialViewResult) {
+					$('#itemlist').html(partialViewResult);
+					});
+				refresh();
+			}, 10000);
+		};
+		refresh();
+	});
+
+	$(function () {
+		$('.browse-dish-a').click(function (event) {
+			event.preventDefault();
+			var path = $(this).attr('href');
+			$.ajax({
+				type: "GET",
+				url: path
+			})
+				.done(function (partialViewResult) {
+					$('#itemlist').html(partialViewResult);
+			});
+		});
+	});
+</script>

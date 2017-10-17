@@ -1,0 +1,43 @@
+﻿@using ASE.Entities
+@using ASE.Common
+@using ASE.UI
+@model List<DishEntity>
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="center-table">
+	<div class="center-cell scroll">
+		<div id="landing" class="aligncenter width740">
+			<h1 class="text-center noselect primary-color whitespace">Your order has been</h1>
+			<h1 class="text-center noselect primary-color underline">completed</h1>
+			<h1 class="text-center noselect primary-color">!</h1>
+			<div class="text-center margin-top-large relative">
+				<a href="/Browse/Index" class="btn btn-large">New Order</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="itemlist">
+	@Html.Partial("~/Views/Browse/_ItemList.cshtml", new List<OrderEntity>())
+</div>
+
+		   	<script type="text/javascript">
+	$(document).ready(function () {
+		function refresh() {
+			setTimeout(function () {
+				$.ajax({
+					type: "GET",
+					url: "/Browse/RefreshList"
+				})
+				.done(function (partialViewResult) {
+					$('#itemlist').html(partialViewResult);
+					});
+				refresh();
+			}, 10000);
+		};
+		refresh();
+	});
+</script>

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{383C25EE-DC74-4BF7-88AB-A6A454552D4A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CareerPanorama.Entities</RootNamespace>
+    <AssemblyName>CareerPanorama.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Browse\DishEntity.cs" />
+    <Compile Include="Browse\StallEntity.cs" />
+    <Compile Include="Order\OrderEntity.cs" />
+    <Compile Include="Staff\StaffEntity.cs" />
+    <Compile Include="Timeline\TimelineExtension.cs" />
+    <Compile Include="Base\BaseEntity.cs" />
+    <Compile Include="Lookup\PipelineLevelTypeEntity.cs" />
+    <Compile Include="Lookup\ResponsibilityTypeEntity.cs" />
+    <Compile Include="Lookup\TimelineEntityTypeEntity.cs" />
+    <Compile Include="Lookup\KeywordEntity.cs" />
+    <Compile Include="Lookup\LanguageEntity.cs" />
+    <Compile Include="Lookup\LookupEntity.cs" />
+    <Compile Include="Lookup\TableNameEntity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Timeline\PipelineLevelEntity.cs" />
+    <Compile Include="Timeline\ResponsibilityEntity.cs" />
+    <Compile Include="Timeline\TimelineEntity.cs" />
+    <Compile Include="User\UserNotificationSettingEntity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ASE.Framework\ASE.Framework.csproj">
+      <Project>{b72e1a24-2db9-499b-a3bb-6bdfd5007074}</Project>
+      <Name>CareerPanorama.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASE.DAL\ASE.DAL.csproj">
+      <Project>{8f2e743b-b963-41ad-a17f-b834c810fa58}</Project>
+      <Name>CareerPanorama.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
