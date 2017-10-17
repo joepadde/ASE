@@ -318,8 +318,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\Icons\" />
-    <Folder Include="Images\Landing\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
