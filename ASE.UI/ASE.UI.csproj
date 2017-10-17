@@ -253,38 +253,6 @@
     <Content Include="Content\Site.css" />
     <None Include="Properties\PublishProfiles\ntu-f2f - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Images\Icons\angle-down.png" />
-    <Content Include="Images\Icons\candidate.png" />
-    <Content Include="Images\Icons\chart-bar.png" />
-    <Content Include="Images\Icons\check.png" />
-    <Content Include="Images\Icons\cog.png" />
-    <Content Include="Images\Icons\dashboard.png" />
-    <Content Include="Images\Icons\edit-square.png" />
-    <Content Include="Images\Icons\edit.png" />
-    <Content Include="Images\Icons\envelope-open.png" />
-    <Content Include="Images\Icons\envelope.png" />
-    <Content Include="Images\Icons\feedback.png" />
-    <Content Include="Images\Icons\file.png" />
-    <Content Include="Images\Icons\fraud.png" />
-    <Content Include="Images\Icons\globe.png" />
-    <Content Include="Images\Icons\group.png" />
-    <Content Include="Images\Icons\hand.png" />
-    <Content Include="Images\Icons\hr.png" />
-    <Content Include="Images\Icons\invite.png" />
-    <Content Include="Images\Icons\menu.png" />
-    <Content Include="Images\Icons\notification-o.png" />
-    <Content Include="Images\Icons\notification.png" />
-    <Content Include="Images\Icons\questionmark.png" />
-    <Content Include="Images\Icons\search.png" />
-    <Content Include="Images\Icons\think.png" />
-    <Content Include="Images\Icons\trash.png" />
-    <Content Include="Images\Icons\user-o.png" />
-    <Content Include="Images\Icons\user.png" />
-    <Content Include="Images\Landing\diploma.png" />
-    <Content Include="Images\Landing\header.jpg" />
-    <Content Include="Images\Landing\header_square.jpg" />
-    <Content Include="Images\Landing\header_transparent.jpg" />
-    <Content Include="Images\Landing\timeline.png" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -350,6 +318,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\Icons\" />
+    <Folder Include="Images\Landing\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
