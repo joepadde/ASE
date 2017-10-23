@@ -1,20 +1,38 @@
 ﻿@using ASE.BL
 @using ASE.Entities
 @using ASE.Common
+@model List<StaffEntity>
 
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<div class="center-table">
+<div class="center-table">
 	<div class="center-cell">
 		<div id="landing" class="margin-auto width760 height-full scroll">
-			<h1 class="text-center noselect primary-color">@stall.Name</h1>
-			<div class="margin-top">
-				<a href="~/Staff/Dishes?StallId=@stall.ID" class="btn btn-large">Manage Dishes</a>
-			</div>
-			<div id="orderlist" class="text-center margin-top-large clearfix relative">
-				@Html.Partial("~/Views/Staff/_OrderList.cshtml")
+			<h1 class="text-center noselect primary-color">Authorized Staff</h1>
+			<div class="width300 margin-top datetime-form">
+				<h4 class="text-left margin-bottom">Add Staff</h4>
+				@using (Html.BeginForm("AddStaffByEmail", "Staff", FormMethod.Post))
+				{
+				@Html.AntiForgeryToken()
+					<div class="input-group clearfix">
+						<div class="input-group-addon relative">
+							<div class="center-table">
+								<div class="center-cell">
+									<div id="envelope-color" class="menu-icon margin-auto">E</div>
+								</div>
+							</div>
+						</div>
+						<input id="Email" name="Email" type="text" placeholder="Email" />
+					</div>
+					<div class="field">
+						<input type="submit" class="btn btn-large" value="Add" />
+					</div>
+				}
+			</div>	
+			<div id="orderlist" class="text-center clearfix relative">
+				@Html.Partial("~/Views/Staff/_UserList.cshtml", Model)
 			</div>
 			<div class="fullwidth text-center margin-top-large relative">
 				<a href="/Staff/Index" class="btn btn-large">Return</a>
@@ -22,34 +40,3 @@
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript">
-	$(document).ready(function () {
-		function refresh() {
-			setTimeout(function () {
-				$.ajax({
-					type: "GET",
-					url: "/Staff/RefreshOrders?StallID=@Request.Params["StallId"]"
-				})
-					.done(function (partialViewResult) {
-						console.log("refreshing orders");
-						console.log(partialViewResult);
-						$('#orderlist').html(partialViewResult);
-					});
-				refresh();
-			}, 5000);
-		};
-		refresh();
-	});
-
-	$(function () {
-		$('.remove-order-a').click(function (event) {
-			event.preventDefault();
-			var path = $(this).attr('href');
-			$.ajax({
-				type: "GET",
-				url: path
-			});
-		});
-	});
-</script>*@

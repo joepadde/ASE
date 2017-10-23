@@ -1,0 +1,29 @@
+﻿@using ASE.BL
+@using ASE.Entities
+@using ASE.UI
+@model List<StaffEntity>
+
+@{ 
+	var _manager = new UserManager();
+}
+
+<table class="margin-top">
+	<tr class="orderlist-header">
+		<th>Email</th>
+		<th></th>
+	</tr>
+	@foreach (var item in Model)
+	{
+		<tr class="orderlist-entry">
+			<th>@_manager.GetEmailByUserId(item.UserID)</th>
+			@if (item.UserID == UIHelper.GetUserIDByEmail(User.Identity.Name))
+			{
+				<th><a href="#" class="remove-order-a btn float-right">You</a></th>
+			}
+			else
+			{
+				<th><a href="/Staff/RemoveStaff?StaffID=@item.ID" class="remove-order-a btn float-right">Remove Access</a></th>
+			}
+		</tr>
+	}
+</table>

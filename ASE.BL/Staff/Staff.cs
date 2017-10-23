@@ -24,6 +24,8 @@ namespace ASE.BL
 		{
 			Init();
 			InitBaseFields();
+			var _manager = new UserManager();
+			Fields.UserID = _manager.GetUserIdByEmail(Email);
 			Fields.Tier = 2;
 		}
 

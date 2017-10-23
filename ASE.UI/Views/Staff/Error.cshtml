@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="center-table">
+    <div class="center-cell">
+        <div class="aligncenter width740">
+            <h1 class="text-center block noselect primary-color">Access Denied!</h1>
+			<h4 class="text-center block noselect margin-top">You are being redirected...</h4>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		function refresh() {
+			setTimeout(function () {
+				location.href = "/Browse";
+			}, 3000);
+		};
+		refresh();
+	});
+</script>
