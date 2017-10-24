@@ -28,8 +28,12 @@ namespace ASE.Entities
 		public string Description { get; set; }
 
 		[DataMember]
-        [DbField("Photo", null, true)]
-        public byte[] Photo { get; set; }
+		[DbField("Photo", null, true)]
+		public Byte[] Photo { get; set; }
+
+		[DataMember]
+		[DbField("ContentType", null, true)]
+		public string ContentType { get; set; }
 
 		[DataMember]
 		[DbField("Price", null, true)]

@@ -59,8 +59,9 @@ namespace ASE.BL
             //StallEntity
             Fields.UserID = (Guid) row["UserId"];
             Fields.Name = row["Name"].ToString();
-            Fields.Logo = null;
-        }
+            Fields.Logo = (row["Logo"] != DBNull.Value) ? (byte[])row["Logo"] : new byte[0];
+			Fields.ContentType = row["ContentType"].ToString();
+		}
         #endregion
 
     }

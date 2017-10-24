@@ -10,7 +10,7 @@
 		<div class="page-container width300 margin-auto secondary-color-bg">
 			<h2>Create Stall</h2>
 			<div>
-				@using (Html.BeginForm("CreateStall", "Staff", FormMethod.Post))
+				@using (Html.BeginForm("CreateStall", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" }))
 				{
 					@Html.AntiForgeryToken()
 					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
 						</div>
 						<input name="Description" type="text" placeholder="Description" />
 					</div>
-					@*<div class="input-group clearfix">
+					<div class="input-group clearfix">
 						<div class="input-group-addon relative">
 							<div class="center-table">
 								<div class="center-cell">
@@ -42,8 +42,8 @@
 								</div>
 							</div>
 						</div>
-						<input name="Logo" type="file" />
-					</div>*@
+						<input name="ImageData" type="file" />
+					</div>
 					<div class="field">
 						<input type="submit" class="btn btn-large" value="Create" />
 					</div>

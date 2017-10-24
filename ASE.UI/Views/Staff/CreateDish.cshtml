@@ -11,7 +11,7 @@
 		<div class="page-container width300 margin-auto secondary-color-bg">
 			<h2>Create Dish</h2>
 			<div>
-				@using (Html.BeginForm("SubmitDish", "Staff", FormMethod.Post))
+				@using (Html.BeginForm("SubmitDish", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" }))
 				{
 					@Html.AntiForgeryToken()
 					<div class="input-group clearfix">
@@ -57,7 +57,7 @@
 						</div>
 						<input name="OutOfOrder" type="checkbox" placeholder="Out of Order?" />
 					</div>*@
-					@*<div class="input-group clearfix">
+					<div class="input-group clearfix">
 						<div class="input-group-addon relative">
 							<div class="center-table">
 								<div class="center-cell">
@@ -65,8 +65,8 @@
 								</div>
 							</div>
 						</div>
-						@Html.TextBoxFor(m => m.Fields.Photo, new { type = "file" })
-					</div>*@
+						<input name="ImageData" type="file" />
+					</div>
 					<div class="field">
 						<input type="submit" class="btn btn-large" value="Create" />
 					</div>

@@ -60,7 +60,8 @@ namespace ASE.BL
             Fields.StallID = (Guid) row["StallId"];
             Fields.Name = row["Name"].ToString();
 			Fields.Description = row["Description"].ToString();
-            Fields.Photo = null;
+			Fields.Photo = (row["Photo"] != DBNull.Value) ? (byte[])row["Photo"] : new byte[0];
+			Fields.ContentType = row["ContentType"].ToString();
 			Fields.Price = float.Parse(row["Price"].ToString());
 			Fields.OutOfOrder = (bool) row["OutOfOrder"];
         }

@@ -23,12 +23,12 @@
 				@for (int i = 0; i < Model.Count; i++)
 				{
 					var img = (Model[i].Photo != null) ? String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model[i].Photo)) : "";
-					<div class="browse-item" onclick="">
+					<div class="browse-item" onclick="request('/Browse/OrderDish?StallId=@Model[i].StallID&DishId=@Model[i].ID&UserId=@UIHelper.GetUserIDByEmail(User.Identity.Name)')">
 						<div class="browse-img">
 							<img src="@img" />
 						</div>
 						<div class="browse-text">
-							<a href="/Browse/OrderDish?StallId=@Model[i].StallID&DishId=@Model[i].ID&UserId=@UIHelper.GetUserIDByEmail(User.Identity.Name)" class="browse-dish-a"><h5>$@Model[i].Price @Model[i].Name</h5></a>
+							<a class="browse-dish-a"><h5>$@Model[i].Price @Model[i].Name</h5></a>
 						</div>
 					</div>
 				}
@@ -60,6 +60,16 @@
 		};
 		refresh();
 	});
+
+	function request(path) {
+		$.ajax({
+			type: "GET",
+			url: path
+		})
+			.done(function (partialViewResult) {
+				$('#itemlist').html(partialViewResult);
+			});
+	}
 
 	$(function () {
 		$('.browse-dish-a').click(function (event) {

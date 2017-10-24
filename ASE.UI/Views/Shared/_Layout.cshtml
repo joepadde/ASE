@@ -32,17 +32,22 @@
 				staff = (list.Count > 0);
 			}
 		}
-		@if (staff)
-		{
-			<div class="padding20">
-				<a href="~/Staff/" class="btn">Staff</a>
-			</div>
-		}
-		else
-		{
-			<h2 class="padding10 primary-color">F2F</h2>
-		}
-	</header>
+		<div class="float">
+			<a href="~/Home/Index" class="btn">Foot2Food</a>
+		</div>
+		<div class="float-right">
+			@if (staff)
+			{
+				<a href="~/Account/LogOff/" class="btn float-right">Log Off</a>
+				<a href="~/Staff/Users" class="btn float-right">Staff</a>
+				<a href="~/Staff/" class="btn float-right">Stalls</a>
+			}
+			else
+			{
+				<a href="~/Account/LogOff" class="btn float-right">Log Off</a>
+			}
+		</div>
+</header>
 	@RenderBody()
 	<div id="popup"></div>
 

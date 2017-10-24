@@ -29,8 +29,12 @@ namespace ASE.Entities
 		public string Description { get; set; }
 
 		[DataMember]
-        [DbField("Logo", null, true)]
-        public byte[] Logo { get; set; }
+		[DbField("Logo", null, true)]
+		public Byte[] Logo { get; set; }
 
-    }
+		[DataMember]
+		[DbField("ContentType", null, true)]
+		public string ContentType { get; set; }
+
+	}
 }
