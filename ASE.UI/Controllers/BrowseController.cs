@@ -18,9 +18,17 @@ namespace ASE
 
 		public ActionResult Stalls()
 		{
-			var manager = new StallManager();
-			List<StallEntity> stalls = manager.GetAllStallEntities();
-			return View("BrowseStalls", stalls);
+			var _manager = new StallManager();
+			var _dishmanager = new DishManager();
+			List<StallEntity> stalls = _manager.GetAllStallEntities();
+			var list = new List<StallEntity>();
+			foreach (var stall in stalls)
+			{
+				var dishes = _dishmanager.GetDishByStallIDEntities(stall.ID.Value);
+				if (dishes.Count != 0)
+					list.Add(stall);
+			}
+			return View("BrowseStalls", list);
 		}
 
 		public ActionResult Dishes(Guid StallId)

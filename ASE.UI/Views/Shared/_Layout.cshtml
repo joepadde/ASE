@@ -44,7 +44,14 @@
 			}
 			else
 			{
-				<a href="~/Account/LogOff" class="btn float-right">Log Off</a>
+				if (User.Identity.IsAuthenticated)
+				{
+					<a href="~/Account/LogOff" class="btn float-right">Log Off</a>
+				}
+				else
+				{
+					<a href="~/Account/LogOn" class="btn float-right">Log In</a>
+				}
 			}
 		</div>
 </header>
