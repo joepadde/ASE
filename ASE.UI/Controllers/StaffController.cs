@@ -8,10 +8,10 @@ using ASE.BL;
 using ASE.UI;
 using System.IO;
 
-namespace CareerPanorama
+namespace ASE
 {
 	[Authorize]
-    public class StaffController : ASE.BaseController<object>
+    public class StaffController : BaseController<object>
 	{
         // GET: Staff
         public ActionResult Index()
